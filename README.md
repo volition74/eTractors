@@ -42,11 +42,17 @@ Example layer attraction setup using eTractors:
 // Import the library
 const eTractors = footage('eTractors.jsx').sourceData;
 
-// Create a new effector
-const myEffector = eTractors.createEffector(effectorLayer, particlePosition);
+effectorLayer = thisComp.layer("eTractor");
+particlePosition = transform.position
+effectorRadiusMultiplier = 10; // Enlarge Whole Effect Area
+effectorLayerEffectSize = 150; // Set The size of the effector when the strength is maximum from 0 a point to larger as an ellipse
 
-// Move towards the effector layer
-particlePosition + myEffector.attract;
+// Create a new effector
+const myEffector = eTractors.createEffector(effectorLayer, particlePosition,effectorRadiusMultiplier,effectorLayerEffectSize);
+
+// Move towards attractor
+power = myEffector.strength * 100;
+value + [power,power]
 ```
 
 ## Usage
@@ -74,10 +80,12 @@ const eTractors = footage('eTractors.jsx').sourceData;
 This creates a new effector based on an effector layer, and the position of the current layer.
 
 ```javascript
-const myEffector = eTractors.createEffector(effectorLayer, particlePosition);
+const myEffector = eTractors.createEffector(effectorLayer, particlePosition, effectorRadiusMultiplier, effectorLayerEffectSize);
 ```
 
 The `createEffector` function returns an object with a couple of properties you can use to influence the motion of your particle layer.
+`effectorRadiusMultiplier` increases the reach of the effector
+`effectorLayerEffectSize` is the size of the area that the effect as at maximum strength. 0 default is a maximum strength of a point, where if we set it to 100 then the maximum effect strength occurs within 100 pixels of the attractor position
 
 ### 4. Use effector properties <!-- omit in toc -->
 
@@ -86,7 +94,7 @@ The `createEffector` function returns an object with a couple of properties you 
 particlePosition + myEffector.attract;
 
 // Move away from attractor
-particlePosition + myEffector.repel;
+particlePosition + myEffector.avoid;
 ```
 
 ## License
